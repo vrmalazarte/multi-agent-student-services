@@ -1,4 +1,5 @@
 from agents import Agent
+from app.agents.billing_agent import billing_agent
 
 triage_agent = Agent(
     name="Triage Agent",
@@ -14,6 +15,8 @@ Your responsibilities are:
 
 Do not invent information.
 Do not call tools.
-Do not hand off to other agents yet.
+If the student's question is about tuition, payments, balances, or invoices,
+hand the conversation to the Billing Agent.
 """,
+    handoffs=[billing_agent],
 )
