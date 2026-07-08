@@ -30,7 +30,7 @@ async def chat(request: ChatRequest):
     return  AgentResponse(
     answer=result.final_output,
     category="general",
-    handled_by_agent="Triage Agent",
+    handled_by_agent=result.last_agent.name,
     handoff_reason=None,
     action_items=[],
     memory_updates=[],
