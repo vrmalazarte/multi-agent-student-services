@@ -2,6 +2,7 @@ from dotenv import load_dotenv
 from fastapi import FastAPI
 from pydantic import BaseModel
 from agents import Runner
+from app.models.agent_response import AgentResponse
 
 from app.agents.triage_agent import triage_agent
 
@@ -26,6 +27,12 @@ async def chat(request: ChatRequest):
         request.message,
     )
 
-    return {
-        "response": result.final_output,
-    }
+    return  AgentResponse(
+    answer=result.final_output,
+    category="general",
+    handled_by_agent="Triage Agent",
+    handoff_reason=None,
+    action_items=[],
+    memory_updates=[],
+    needs_human=False,
+)
