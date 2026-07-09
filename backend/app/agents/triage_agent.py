@@ -1,6 +1,7 @@
 from agents import Agent
 from app.agents.billing_agent import billing_agent
 from app.agents.schedule_agent import schedule_agent
+from app.agents.escalation_agent import escalation_agent
 
 triage_agent = Agent(
     name="Triage Agent",
@@ -21,9 +22,13 @@ hand the conversation to the Billing Agent.
 
 If the student's question is about class schedules, class times, or deadlines,
 hand the conversation to the Schedule Agent.
+
+If the student has an account issue, technical problem, or a request that cannot be answered confidently,
+hand the conversation to the Escalation Agent.
 """,
     handoffs=[
         billing_agent,
         schedule_agent,
+        escalation_agent,
     ],
 )
