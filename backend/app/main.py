@@ -13,6 +13,11 @@ from app.services.thread_service import (
     create_thread,
     create_thread_item,
     get_thread,
+    get_thread_items,
+)
+from app.services.memory_service import (
+    get_memory_items,
+    save_memory_item,
 )
 
 load_dotenv()
@@ -35,7 +40,7 @@ async def chat(
     request: ChatRequest,
     db: Session = Depends(get_db),
 ):
-
+    
     if request.thread_id is None:
         thread = create_thread(db)
     else:
@@ -57,6 +62,29 @@ async def chat(
         content=request.message,
     )
 
+    thread_items = get_thread_items(
+        db=db,
+        thread_id=thread.id,
+    )
+
+    memory_items = get_memory_items(
+        db=db,
+        thread_id=thread.id,
+    )
+
+    memory_context = "\n".join(
+    f"{item.key}: {item.value}"
+    for item in memory_items
+)
+
+    agent_input = [
+        {
+            "role": item.role,
+            "content": item.content,
+        }
+        for item in thread_items
+    ]
+
     context = RunContext(
         db=db,
         thread_id=thread.id,
@@ -64,18 +92,28 @@ async def chat(
 
     result = await Runner.run(
         triage_agent,
-        request.message,
+        agent_input,
         context=context,
         run_config=RunConfig(
             workflow_name="Student Services Assistant",
         ),
     )
 
+    agent_output = result.final_output
+
+    for memory_update in agent_output.memory_updates:
+        save_memory_item(
+            db=db,
+            thread_id=thread.id,
+            key=memory_update.key,
+            value=memory_update.value,
+        )
+
     create_thread_item(
         db=db,
         thread_id=thread.id,
         role="assistant",
-        content=result.final_output,
+        content=agent_output.answer,
     )
 
     create_agent_run(
@@ -85,11 +123,12 @@ async def chat(
     )
 
     return AgentResponse(
-        answer=result.final_output,
-        category="general",
+        answer=agent_output.answer,
+        category=agent_output.category,
         handled_by_agent=result.last_agent.name,
-        handoff_reason=None,
-        action_items=[],
-        memory_updates=[],
-        needs_human=False,
+        handoff_reason=agent_output.handoff_reason,
+        action_items=agent_output.action_items,
+        memory_updates=agent_output.memory_updates,
+        needs_human=agent_output.needs_human,
+        thread_id=thread.id,
     )

@@ -2,10 +2,12 @@ from agents import Agent
 from app.agents.billing_agent import billing_agent
 from app.agents.schedule_agent import schedule_agent
 from app.agents.escalation_agent import escalation_agent
+from app.models.agent_output import AgentOutput
 
 triage_agent = Agent(
     name="Triage Agent",
     model="gpt-5.5",
+    output_type=AgentOutput,
     instructions="""
 You are the first agent that every student talks to.
 
