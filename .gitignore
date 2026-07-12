@@ -7,6 +7,9 @@ __pycache__/
 .env
 .env.*
 
+# Cloud SQL
+cloud-sql-proxy.exe
+
 # Terraform
 .terraform/
 *.tfstate
