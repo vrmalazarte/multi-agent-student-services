@@ -6,6 +6,10 @@ from app.tools.billing_tools import get_student_balance
 billing_agent = Agent(
     name="Billing Agent",
     model="gpt-5.5",
+    handoff_description=(
+    "Handles tuition balances, payments, invoices, "
+    "and other billing-related student requests."
+),
     output_type=AgentOutput,
     instructions="""
 You help students with billing-related questions.

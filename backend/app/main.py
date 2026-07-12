@@ -1,10 +1,12 @@
 from dotenv import load_dotenv
 from fastapi import Depends, FastAPI, HTTPException
+from fastapi.middleware.cors import CORSMiddleware
 from pydantic import BaseModel
 from sqlalchemy.orm import Session
 from agents import Runner, RunConfig
 
 from app.agents.triage_agent import triage_agent
+from app.services.agent_run_service import create_agent_run
 from app.db.database import get_db
 from app.models.agent_response import AgentResponse
 from app.models.run_context import RunContext
@@ -23,6 +25,17 @@ from app.services.memory_service import (
 load_dotenv()
 
 app = FastAPI(title="Student Services Assistant API")
+
+app.add_middleware(
+    CORSMiddleware,
+    allow_origins=[
+        "http://localhost:3000",
+        "http://127.0.0.1:3000",
+    ],
+    allow_credentials=True,
+    allow_methods=["*"],
+    allow_headers=["*"],
+)
 
 
 class ChatRequest(BaseModel):
@@ -77,18 +90,35 @@ async def chat(
     for item in memory_items
 )
 
-    agent_input = [
+    agent_input = []
+
+    if memory_context:
+        agent_input.append(
+            {
+                "role": "system",
+                "content": (
+                    "Saved student memory:\n"
+                    f"{memory_context}\n\n"
+                    "Use this information when relevant. "
+                    "Do not claim the student provided information "
+                    "that is not listed here."
+                ),
+            }
+        )
+
+    agent_input.extend(
         {
             "role": item.role,
             "content": item.content,
         }
         for item in thread_items
-    ]
+    )
 
     context = RunContext(
         db=db,
         thread_id=thread.id,
     )
+
 
     result = await Runner.run(
         triage_agent,

@@ -7,6 +7,10 @@ from app.tools.escalation_tools import create_support_ticket
 escalation_agent = Agent(
     name="Escalation Agent",
     model="gpt-5.5",
+    handoff_description=(
+    "Handles account access problems, technical issues, "
+    "and requests requiring human support."
+),
     output_type=AgentOutput,
     instructions="""
 You help students with issues that require human support.
