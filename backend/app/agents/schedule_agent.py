@@ -7,6 +7,10 @@ from app.tools.schedule_tools import get_student_schedule
 schedule_agent = Agent(
     name="Schedule Agent",
     model="gpt-5.5",
+    handoff_description=(
+    "Handles class schedules, class times, "
+    "and academic deadline requests."
+),
     output_type=AgentOutput,
     instructions="""
 You help students with schedule-related questions.
