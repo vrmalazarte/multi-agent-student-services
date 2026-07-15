@@ -397,6 +397,8 @@ The frontend communicates with the backend through REST API requests.
 
 The application uses **Google Cloud SQL PostgreSQL** for persistent storage.
 
+The current Cloud SQL instance uses Google's Cloud SQL free trial configuration. The Enterprise Plus N-8 machine tier and 100 GB storage are preset by the free trial rather than a paid infrastructure upgrade selected for this project. The application uses the trial instance for development and internship review purposes.
+
 The backend stores:
 
 - conversation threads
