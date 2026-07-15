@@ -6,6 +6,16 @@ This project was developed as the second internship project for Amigda Labs. It 
 
 ---
 
+## Deployed Application
+
+Frontend:
+https://student-services-frontend-381407246613.asia-southeast1.run.app
+
+Backend API:
+https://student-services-backend-381407246613.asia-southeast1.run.app
+
+> Note: The Cloud SQL instance may be stopped when the application is not being tested to manage cloud resources. Database-dependent features require the instance to be running.
+
 ## Features
 
 - Multi-agent architecture using the OpenAI Agents SDK
