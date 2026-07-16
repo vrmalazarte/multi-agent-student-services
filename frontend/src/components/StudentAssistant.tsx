@@ -29,7 +29,7 @@ export default function StudentAssistant() {
   const [isOpen, setIsOpen] = useState(false);
   const [isFullscreen, setIsFullscreen] = useState(false);
 
-  async function handleSend() {
+  async function handleSend() {    
     if (!input.trim() || isLoading) {
       return;
     }
@@ -48,8 +48,11 @@ export default function StudentAssistant() {
     setIsLoading(true);
 
     try {
+      const API_URL =
+        "https://student-services-backend-381407246613.asia-southeast1.run.app";
+
       const response = await fetch(
-        `${process.env.NEXT_PUBLIC_API_URL}/chat`,
+        `${API_URL}/chat`,
         {
           method: "POST",
           headers: {
