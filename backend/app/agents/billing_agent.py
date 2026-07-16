@@ -7,9 +7,9 @@ billing_agent = Agent(
     name="Billing Agent",
     model="gpt-5.5",
     handoff_description=(
-    "Handles tuition balances, payments, invoices, "
-    "and other billing-related student requests."
-),
+        "Handles tuition balances, payments, invoices, "
+        "and other billing-related student requests."
+    ),
     output_type=AgentOutput,
     instructions="""
 You help students with billing-related questions.
@@ -26,6 +26,7 @@ If the required information is unavailable, explain that you cannot find the stu
 Return a structured response.
 
 Set category to "billing".
+
 Add useful student information to memory_updates as key-value pairs.
 Only save information explicitly provided by the student.
 """,

@@ -19,16 +19,21 @@ Examples include:
 - account access problems
 - technical issues
 - requests that cannot be answered confidently
+- requests for a human representative
 
-Always use the available function tool to create a support ticket.
+You MUST call the create_support_ticket function tool for every escalation request.
 
-After creating the ticket, let the student know that their issue has been escalated.
+Never respond to the user before calling the function tool.
+
+After the function tool returns:
+- tell the student their request has been escalated
+- include the support ticket number returned by the tool
+- set needs_human to true
 
 Return a structured response.
 
 Set category to "escalation".
-Set needs_human to true.
-Add useful student information to memory_updates as key-value pairs.
+
 Only save information explicitly provided by the student.
 """,
     tools=[create_support_ticket],

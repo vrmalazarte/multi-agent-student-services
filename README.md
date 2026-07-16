@@ -8,12 +8,17 @@ This project was developed as the second internship project for Amigda Labs. It 
 
 ## Deployed Application
 
+docs/update-readme
 ### Frontend
+
+frontend
+development
 
 ```text
 https://student-services-frontend-381407246613.asia-southeast1.run.app
 ```
 
+docs/update-readme
 ### Backend API
 
 ```text
@@ -32,6 +37,15 @@ https://student-services-backend-381407246613.asia-southeast1.run.app/chat
 > - `GET /health` is used to verify that the backend service is running.
 > - `POST /chat` is the main endpoint used by the frontend to communicate with the AI assistant.
 > - The Cloud SQL instance may be stopped when the application is not being tested to manage cloud resources. Database-dependent features require the instance to be running.
+
+backend api
+
+```text
+https://student-services-backend-381407246613.asia-southeast1.run.app
+```
+
+> Note: The Cloud SQL instance may be stopped when the application is not being tested to manage cloud resources. Database-dependent features require the instance to be running.
+development
 
 ## Features
 
@@ -52,6 +66,13 @@ https://student-services-backend-381407246613.asia-southeast1.run.app/chat
 - Basic Terraform configuration for GCP infrastructure
 
 ---
+
+## Implemented Agents
+
+- Triage Agent
+- Billing Agent
+- Schedule Agent
+- Escalation Agent
 
 ## Tech Stack
 
@@ -148,6 +169,8 @@ The application follows a multi-agent architecture where every user request is f
 
 Each specialist agent uses function tools to retrieve or store information in PostgreSQL. Conversation threads, memory, support tickets, and agent runs are persisted in Cloud SQL, allowing agents to share context throughout a conversation.
 
+Conversation memory is stored in the `memory_items` table. Before each agent run, the backend loads the saved memory for the current thread and injects it into the agent's context, allowing specialist agents to reuse information such as the student's ID throughout the conversation.
+
 The backend is deployed on Google Cloud Run and communicates with a Cloud SQL PostgreSQL instance using SQLAlchemy. OpenAI Agent Traces provide visibility into agent handoffs and tool calls, while Cloud Logging captures backend application logs and request logs.
 
 ---
@@ -191,7 +214,7 @@ The backend is built with FastAPI and the OpenAI Agents SDK. It is responsible f
 
 ### Frontend
 
-The frontend is built with Next.js and React. It provides a simple chat interface for interacting with the Student Services Assistant and communicates with the backend through REST API requests.
+The frontend is built with Next.js and React. It provides a modern Amigda University landing page with a floating AI Student Assistant, responsive design, announcements, student services information, and a chatbot that communicates with the backend through REST API requests.
 
 ### Infrastructure
 
@@ -239,7 +262,7 @@ User:
 2026001
 
 Billing Agent:
-Your outstanding tuition balance is $1,250.00.
+Your outstanding tuition balance is ₱29,350.00.
 ```
 
 ---
@@ -369,7 +392,7 @@ Example response:
 
 ```json
 {
-  "answer": "Your outstanding tuition balance is $1,250.00.",
+  "answer": "Your outstanding tuition balance is ₱29,350.00.",
   "category": "billing",
   "handled_by_agent": "Billing Agent",
   "handoff_reason": null,
@@ -423,6 +446,8 @@ The frontend communicates with the backend through REST API requests.
 ### Database
 
 The application uses **Google Cloud SQL PostgreSQL** for persistent storage.
+
+The application uses Google Cloud SQL PostgreSQL for persistent storage during development and internship evaluation.
 
 The backend stores:
 
@@ -804,7 +829,7 @@ Do not use `terraform destroy` without reviewing the resources Terraform current
 ## Future Improvements
 
 - Add student authentication
-- Replace mock billing and schedule data with real student service APIs
+- Replace mock billing and schedule data with integration to a real student information system (SIS) or university APIs.
 - Improve IAM configuration using least-privilege service accounts
 - Expand Terraform coverage for additional GCP resources
 - Add automated backend and frontend tests
@@ -818,4 +843,15 @@ Do not use `terraform destroy` without reviewing the resources Terraform current
 
 The Multi-Agent Student Services Assistant is deployed and functional.
 
-The project demonstrates multi-agent handoffs, function tools, structured outputs, PostgreSQL persistence, shared conversation memory, Cloud Run deployment, OpenAI Agent Traces, Cloud Logging, and basic Terraform usage.
+The project satisfies the internship requirements by demonstrating:
+
+- multi-agent handoffs
+- structured outputs
+- function tools
+- PostgreSQL persistence
+- shared conversation memory
+- Cloud Run deployment
+- OpenAI Agent Traces
+- Cloud Logging
+- basic Terraform infrastructure
+
