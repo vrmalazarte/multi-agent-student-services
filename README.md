@@ -8,11 +8,35 @@ This project was developed as the second internship project for Amigda Labs. It 
 
 ## Deployed Application
 
+docs/update-readme
+### Frontend
+
 frontend
+development
 
 ```text
 https://student-services-frontend-381407246613.asia-southeast1.run.app
 ```
+
+docs/update-readme
+### Backend API
+
+```text
+Base URL
+https://student-services-backend-381407246613.asia-southeast1.run.app
+
+GET /health
+https://student-services-backend-381407246613.asia-southeast1.run.app/health
+
+POST /chat
+https://student-services-backend-381407246613.asia-southeast1.run.app/chat
+```
+
+> **Note:**
+> - The backend is an API service and does not implement the root (`/`) endpoint. Visiting the base URL directly will return `404 Not Found`, which is expected.
+> - `GET /health` is used to verify that the backend service is running.
+> - `POST /chat` is the main endpoint used by the frontend to communicate with the AI assistant.
+> - The Cloud SQL instance may be stopped when the application is not being tested to manage cloud resources. Database-dependent features require the instance to be running.
 
 backend api
 
@@ -21,6 +45,7 @@ https://student-services-backend-381407246613.asia-southeast1.run.app
 ```
 
 > Note: The Cloud SQL instance may be stopped when the application is not being tested to manage cloud resources. Database-dependent features require the instance to be running.
+development
 
 ## Features
 
