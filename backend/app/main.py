@@ -89,8 +89,8 @@ async def chat(
     memory_context = "\n".join(
     f"{item.key}: {item.value}"
     for item in memory_items
-)
-
+    )   
+    
     agent_input = []
 
     if memory_context:
