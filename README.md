@@ -8,17 +8,12 @@ This project was developed as the second internship project for Amigda Labs. It 
 
 ## Deployed Application
 
-docs/update-readme
 ### Frontend
-
-frontend
-development
 
 ```text
 https://student-services-frontend-381407246613.asia-southeast1.run.app
 ```
 
-docs/update-readme
 ### Backend API
 
 ```text
@@ -37,15 +32,6 @@ https://student-services-backend-381407246613.asia-southeast1.run.app/chat
 > - `GET /health` is used to verify that the backend service is running.
 > - `POST /chat` is the main endpoint used by the frontend to communicate with the AI assistant.
 > - The Cloud SQL instance may be stopped when the application is not being tested to manage cloud resources. Database-dependent features require the instance to be running.
-
-backend api
-
-```text
-https://student-services-backend-381407246613.asia-southeast1.run.app
-```
-
-> Note: The Cloud SQL instance may be stopped when the application is not being tested to manage cloud resources. Database-dependent features require the instance to be running.
-development
 
 ## Features
 
@@ -279,7 +265,7 @@ Function Tool:
 
 - `get_student_schedule()`
 
-The Schedule Agent uses conversation memory to reuse a previously provided student ID, eliminating unnecessary prompts during the same conversation.
+The Schedule Agent is designed to reuse a previously provided student ID through conversation memory stored in PostgreSQL, reducing unnecessary prompts during the same conversation.
 
 ---
 
@@ -433,21 +419,13 @@ The backend connects to Cloud SQL using the Cloud SQL Unix socket provided by Cl
 
 The frontend is deployed separately on **Google Cloud Run**.
 
-During deployment, the backend API URL is provided through the following build environment variable:
-
-```text
-NEXT_PUBLIC_API_URL
-```
-
-The frontend communicates with the backend through REST API requests.
+The frontend communicates with the deployed backend through REST API requests.
 
 ---
 
 ### Database
 
-The application uses **Google Cloud SQL PostgreSQL** for persistent storage.
-
-The application uses Google Cloud SQL PostgreSQL for persistent storage during development and internship evaluation.
+The application uses Google Cloud SQL PostgreSQL for persistent storage.
 
 The backend stores:
 
@@ -737,7 +715,7 @@ AI tools were used throughout the project as learning and development assistants
 - Verified function tool execution
 - Tested PostgreSQL persistence
 - Verified thread-based conversation memory
-- Fixed Schedule Agent memory behavior
+- Improved Schedule Agent memory handling and verified conversation memory during testing
 - Configured and deployed the backend and frontend to Cloud Run
 - Configured Cloud SQL and Secret Manager
 - Inspected OpenAI Agent Traces
@@ -804,7 +782,7 @@ gcloud run services delete student-services-frontend \
 gcloud sql instances delete student-services-db
 ```
 
-Deleting the Cloud SQL instance permanently removes the database and its stored application data.
+Deleting the Cloud SQL instance permanently removes the application's database and stored data.
 
 ### Terraform State
 
@@ -829,7 +807,7 @@ Do not use `terraform destroy` without reviewing the resources Terraform current
 ## Future Improvements
 
 - Add student authentication
-- Replace mock billing and schedule data with integration to a real student information system (SIS) or university APIs.
+- Replace mock billing and schedule data with a real Student Information System (SIS) or university APIs.
 - Improve IAM configuration using least-privilege service accounts
 - Expand Terraform coverage for additional GCP resources
 - Add automated backend and frontend tests
