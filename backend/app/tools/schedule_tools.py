@@ -16,9 +16,23 @@ Monday
 Tuesday
 - 9:00 AM - Software Engineering
 """,
+
         "2026002": """
 Monday
 - 10:00 AM - Calculus
+- 2:00 PM - Discrete Mathematics
+
+Tuesday
+- 8:00 AM - Object-Oriented Programming
+""",
+
+        "2026003": """
+Monday
+- 9:00 AM - Operating Systems
+- 3:00 PM - Information Security
+
+Tuesday
+- 10:00 AM - Artificial Intelligence
 """,
     }
 
