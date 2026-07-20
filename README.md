@@ -1,4 +1,4 @@
-# Multi-Agent Student Services Assistant
+# Octa Multi-Agent Student Services Assistant
 
 A production-style multi-agent AI application built using the OpenAI Agents SDK and deployed on Google Cloud Platform.
 
